@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sudarshan V – Electronics Engineer Portfolio</title>
+  <meta name="description" content="Personal portfolio of Sudarshan V, Electronics and Communication Engineering student at BIT Bangalore." />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css" />
+  <style>
+    :root {
+      --aqua: #00BFFF;
+      --navy: #0A192F;
+      --accent: #64FFDA;
+      --maroon: #5C0A0A;
+      --maroon2: #8B0000;
+      --text: #E8F4FD;
+      --muted: #8BA3BC;
+      --glass: rgba(0,191,255,0.07);
+      --glass-border: rgba(0,191,255,0.18);
+      --card: rgba(10,25,47,0.75);
+    }
+    /* LIGHT MODE */
+    body.light {
+      --navy: #EDF6FF;
+      --text: #0A192F;
+      --muted: #3D6080;
+      --glass: rgba(0,191,255,0.10);
+      --glass-border: rgba(0,100,180,0.25);
+      --card: rgba(220,240,255,0.80);
+      --maroon: #A01010;
+      --maroon2: #C0392B;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      min-height: 100vh;
+      transition: background 0.4s, color 0.4s;
+      cursor: none;
+    }
+    /* CUSTOM CURSOR */
+    .cursor { position: fixed; width: 12px; height: 12px; background: var(--aqua); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform 0.1s; mix-blend-mode: screen; }
+    .cursor-ring { position: fixed; width: 36px; height: 36px; border: 1px solid var(--accent); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all 0.15s ease; mix-blend-mode: screen; }
+    /* SCROLL PROGRESS */
+    #scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--aqua), var(--accent)); width: 0%; z-index: 9997; transition: width 0.1s; }
+    /* NAVBAR */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 1000;
+      padding: 0 2rem;
+      backdrop-filter: blur(18px);
+      background: rgba(10,25,47,0.82);
+      border-bottom: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+      transition: background 0.3s;
+    }
+    body.light nav { background: rgba(220,240,255,0.88); }
+    .nav-logo { font-family: 'Orbitron', monospace; font-weight: 900; font-size: 1.3rem; color: var(--aqua); letter-spacing: 2px; }
+    .nav-links { display: flex; gap: 1.8rem; list-style: none; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.9rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; transition: color 0.3s; }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-right { display: flex; align-items: center; gap: 1rem; }
+    .theme-toggle { background: var(--glass); border: 1px solid var(--glass-border); color: var(--aqua); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; transition: all 0.3s; }
+    .theme-toggle:hover { background: var(--aqua); color: var(--navy); }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .hamburger span { width: 25px; height: 2px; background: var(--aqua); border-radius: 2px; transition: 0.3s; }
+    /* LOADING SCREEN */
+    #loader { position: fixed; inset: 0; background: #020C1B; z-index: 99999; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity 0.6s; }
+    .loader-text { font-family: 'Orbitron', monospace; font-size: 2rem; color: var(--aqua); letter-spacing: 4px; animation: pulse 1s infinite alternate; }
+    .loader-bar { width: 200px; height: 2px; background: rgba(0,191,255,0.2); margin-top: 20px; border-radius: 2px; overflow: hidden; }
+    .loader-fill { height: 100%; background: linear-gradient(90deg, var(--aqua), var(--accent)); width: 0; animation: load 1.8s ease forwards; }
+    @keyframes load { to { width: 100%; } }
+    @keyframes pulse { from { opacity: 0.5; } to { opacity: 1; } }
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      background: radial-gradient(ellipse at 60% 40%, #5C0A0A 0%, #3B0000 30%, #0A192F 70%);
+    }
+    body.light #hero { background: radial-gradient(ellipse at 60% 40%, #FFD6D6 0%, #FFB0B0 20%, #EDF6FF 70%); }
+    canvas#particles { position: absolute; inset: 0; width: 100%; height: 100%; }
+    .hero-content { position: relative; z-index: 10; text-align: center; max-width: 900px; padding: 2rem; }
+    .hero-avatar-wrap { position: relative; width: 180px; height: 180px; margin: 0 auto 2rem; }
+    .hero-avatar-wrap::before { content: ''; position: absolute; inset: -6px; border-radius: 50%; background: conic-gradient(var(--aqua), var(--accent), var(--aqua)); animation: spin 4s linear infinite; }
+    .hero-avatar-wrap::after { content: ''; position: absolute; inset: -3px; border-radius: 50%; background: var(--navy); }
+    .hero-avatar { position: relative; z-index: 1; width: 100%; height: 100%; border-radius: 50%; background: linear-gradient(135deg, #1a3a5c, #0d2035); display: flex; align-items: center; justify-content: center; font-size: 5rem; color: var(--aqua); overflow: hidden; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .hero-name { font-family: 'Orbitron', monospace; font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 900; color: var(--text); letter-spacing: 3px; line-height: 1.1; }
+    .hero-name span { color: var(--aqua); }
+    .hero-subtitle { font-size: 1.3rem; color: var(--muted); margin: 0.5rem 0 1.2rem; font-weight: 300; letter-spacing: 2px; }
+    .typing-wrap { font-family: 'Orbitron', monospace; font-size: clamp(1rem, 2.5vw, 1.4rem); color: var(--accent); min-height: 2rem; letter-spacing: 1px; margin-bottom: 2.5rem; }
+    .cursor-blink { display: inline-block; width: 2px; height: 1.2em; background: var(--accent); margin-left: 3px; vertical-align: middle; animation: blink 0.8s step-end infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    .hero-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .btn { padding: 0.8rem 2rem; border-radius: 3px; font-family: 'Orbitron', monospace; font-size: 0.8rem; letter-spacing: 2px; font-weight: 600; cursor: pointer; text-decoration: none; transition: all 0.3s; display: inline-flex; align-items: center; gap: 0.5rem; }
+    .btn-primary { background: linear-gradient(135deg, var(--aqua), #0080CC); color: #fff; border: none; box-shadow: 0 0 20px rgba(0,191,255,0.4); }
+    .btn-primary:hover { box-shadow: 0 0 40px rgba(0,191,255,0.7); transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--accent); border: 1px solid var(--accent); }
+    .btn-outline:hover { background: rgba(100,255,218,0.1); transform: translateY(-2px); }
+    /* SECTION COMMONS */
+    section { padding: 5rem 2rem; }
+    .section-label { font-family: 'Orbitron', monospace; font-size: 0.75rem; letter-spacing: 4px; color: var(--aqua); text-transform: uppercase; margin-bottom: 0.5rem; }
+    .section-title { font-family: 'Orbitron', monospace; font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; color: var(--text); margin-bottom: 1rem; line-height: 1.2; }
+    .section-title span { color: var(--aqua); }
+    .divider { width: 60px; height: 3px; background: linear-gradient(90deg, var(--aqua), var(--accent)); border-radius: 2px; margin-bottom: 3rem; }
+    .container { max-width: 1100px; margin: 0 auto; }
+    /* GLASS CARD */
+    .glass-card { background: var(--card); border: 1px solid var(--glass-border); backdrop-filter: blur(16px); border-radius: 12px; padding: 2rem; transition: transform 0.3s, box-shadow 0.3s; }
+    .glass-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,191,255,0.12); }
+    /* ABOUT */
+    #about { background: linear-gradient(180deg, var(--navy), rgba(10,25,47,0.95)); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+    .about-info p { font-size: 1.05rem; line-height: 1.8; color: var(--muted); margin-bottom: 1rem; }
+    .about-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem; }
+    .meta-item { display: flex; align-items: center; gap: 0.7rem; font-size: 0.95rem; }
+    .meta-item i { color: var(--aqua); width: 20px; }
+    .about-stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; }
+    .stat-card { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 10px; padding: 1.5rem; text-align: center; }
+    .stat-num { font-family: 'Orbitron', monospace; font-size: 2.5rem; font-weight: 900; color: var(--aqua); }
+    .stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 0.3rem; letter-spacing: 1px; text-transform: uppercase; }
+    /* TIMELINE / ACADEMIC */
+    #academic { background: var(--navy); }
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--aqua), var(--accent), transparent); }
+    .timeline-item { position: relative; margin-bottom: 2.5rem; padding: 1.5rem 2rem; background: var(--card); border: 1px solid var(--glass-border); border-radius: 10px; }
+    .timeline-item::before { content: ''; position: absolute; left: -2.55rem; top: 1.5rem; width: 14px; height: 14px; border-radius: 50%; background: var(--aqua); border: 3px solid var(--navy); box-shadow: 0 0 12px var(--aqua); }
+    .timeline-num { font-family: 'Orbitron', monospace; font-size: 0.7rem; color: var(--aqua); letter-spacing: 2px; margin-bottom: 0.3rem; }
+    .timeline-item h3 { font-family: 'Orbitron', monospace; font-size: 1.05rem; color: var(--text); margin-bottom: 0.4rem; }
+    .timeline-item p { color: var(--muted); font-size: 0.95rem; }
+    .badge { display: inline-block; padding: 0.2rem 0.8rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; letter-spacing: 1px; margin-top: 0.5rem; }
+    .badge-done { background: rgba(100,255,218,0.15); color: var(--accent); border: 1px solid var(--accent); }
+    .badge-active { background: rgba(0,191,255,0.15); color: var(--aqua); border: 1px solid var(--aqua); }
+    /* CAREER VISION */
+    #vision { background: linear-gradient(135deg, rgba(92,10,10,0.3), rgba(10,25,47,0.9)); }
+    .vision-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
+    .vision-card { background: var(--card); border: 1px solid var(--glass-border); border-radius: 10px; padding: 1.5rem; display: flex; align-items: flex-start; gap: 1rem; transition: all 0.3s; }
+    .vision-card:hover { border-color: var(--aqua); box-shadow: 0 0 20px rgba(0,191,255,0.15); transform: translateY(-3px); }
+    .vision-icon { width: 48px; height: 48px; background: linear-gradient(135deg, rgba(0,191,255,0.2), rgba(100,255,218,0.1)); border: 1px solid var(--glass-border); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: var(--aqua); flex-shrink: 0; }
+    .vision-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.3rem; }
+    .vision-card p { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+    /* SKILLS */
+    #skills { background: var(--navy); }
+    .skills-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+    .skill-group h3 { font-family: 'Orbitron', monospace; font-size: 1rem; color: var(--aqua); margin-bottom: 1.5rem; letter-spacing: 2px; }
+    .skill-bar-wrap { margin-bottom: 1.2rem; }
+    .skill-bar-head { display: flex; justify-content: space-between; margin-bottom: 0.4rem; font-size: 0.95rem; font-weight: 600; }
+    .skill-bar-track { height: 6px; background: rgba(0,191,255,0.1); border-radius: 3px; overflow: hidden; }
+    .skill-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--aqua), var(--accent)); transition: width 1.5s ease; width: 0; }
+    /* ACHIEVEMENTS */
+    #achievements { background: linear-gradient(135deg, rgba(10,25,47,0.95), rgba(92,10,10,0.25)); }
+    .achieve-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.5rem; }
+    .achieve-card { background: var(--card); border: 1px solid var(--glass-border); border-radius: 12px; padding: 2rem; text-align: center; transition: all 0.3s; }
+    .achieve-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 0 30px rgba(100,255,218,0.15); }
+    .achieve-icon { font-size: 2.5rem; margin-bottom: 1rem; }
+    .achieve-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .achieve-card p { color: var(--muted); font-size: 0.88rem; }
+    /* HOBBIES */
+    #hobbies { background: var(--navy); }
+    .hobby-card { max-width: 600px; margin: 0 auto; background: linear-gradient(135deg, rgba(92,10,10,0.4), rgba(0,191,255,0.08)); border: 1px solid var(--glass-border); border-radius: 16px; padding: 3rem; text-align: center; }
+    .hobby-icon { font-size: 5rem; margin-bottom: 1.5rem; filter: drop-shadow(0 0 20px rgba(0,191,255,0.4)); }
+    .hobby-card h3 { font-family: 'Orbitron', monospace; font-size: 1.5rem; color: var(--aqua); margin-bottom: 1rem; }
+    blockquote { font-size: 1.05rem; color: var(--muted); line-height: 1.8; font-style: italic; border-left: 3px solid var(--aqua); padding-left: 1rem; text-align: left; }
+    /* CONTACT */
+    #contact { background: linear-gradient(180deg, rgba(92,10,10,0.2), var(--navy)); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 3rem; }
+    .contact-info { display: flex; flex-direction: column; gap: 1.5rem; }
+    .contact-item { display: flex; align-items: center; gap: 1rem; }
+    .contact-icon { width: 52px; height: 52px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: var(--aqua); flex-shrink: 0; }
+    .contact-item h4 { font-size: 0.8rem; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+    .contact-item a { color: var(--text); text-decoration: none; font-size: 1rem; font-weight: 600; }
+    .contact-item a:hover { color: var(--aqua); }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: 0.4rem; }
+    .form-group label { font-size: 0.8rem; letter-spacing: 2px; color: var(--muted); text-transform: uppercase; }
+    .form-group input, .form-group textarea {
+      background: var(--glass); border: 1px solid var(--glass-border); border-radius: 6px;
+      padding: 0.8rem 1rem; color: var(--text); font-family: 'Rajdhani', sans-serif; font-size: 1rem;
+      transition: border-color 0.3s; resize: vertical; outline: none;
+    }
+    .form-group input:focus, .form-group textarea:focus { border-color: var(--aqua); box-shadow: 0 0 10px rgba(0,191,255,0.15); }
+    .social-links { display: flex; gap: 1rem; margin-top: 2rem; }
+    .social-btn { width: 44px; height: 44px; background: var(--glass); border: 1px solid var(--glass-border); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--muted); font-size: 1.1rem; text-decoration: none; transition: all 0.3s; }
+    .social-btn:hover { background: var(--aqua); color: var(--navy); border-color: var(--aqua); transform: translateY(-3px); }
+    /* MAP */
+    #map-embed { border: 1px solid var(--glass-border); border-radius: 12px; overflow: hidden; margin-top: 2rem; }
+    /* FOOTER */
+    footer { background: #020C1B; border-top: 1px solid var(--glass-border); padding: 2rem; text-align: center; }
+    body.light footer { background: #D0E8F5; }
+    footer p { color: var(--muted); font-size: 0.9rem; letter-spacing: 1px; }
+    footer span { color: var(--aqua); }
+    /* BACK TO TOP */
+    #back-top { position: fixed; bottom: 2rem; right: 2rem; width: 46px; height: 46px; background: var(--aqua); color: var(--navy); border: none; border-radius: 50%; font-size: 1.1rem; cursor: pointer; display: none; align-items: center; justify-content: center; box-shadow: 0 0 20px rgba(0,191,255,0.4); transition: all 0.3s; z-index: 999; }
+    #back-top:hover { transform: translateY(-4px); box-shadow: 0 0 30px rgba(0,191,255,0.7); }
+    /* MOBILE MENU */
+    .mobile-menu { display: none; position: fixed; top: 64px; left: 0; right: 0; background: rgba(10,25,47,0.97); padding: 1.5rem 2rem; z-index: 999; flex-direction: column; gap: 1rem; border-bottom: 1px solid var(--glass-border); }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--muted); text-decoration: none; font-size: 1rem; font-weight: 600; letter-spacing: 1px; text-transform: uppercase; padding: 0.5rem 0; border-bottom: 1px solid var(--glass-border); }
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .about-grid, .skills-grid, .contact-grid { grid-template-columns: 1fr; }
+      .about-stats { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 480px) {
+      .hero-btns { flex-direction: column; align-items: center; }
+      .achieve-grid { grid-template-columns: 1fr 1fr; }
+    }
+    /* GLOW effects */
+    .glow { text-shadow: 0 0 20px rgba(0,191,255,0.6); }
+    .tag { display: inline-block; background: rgba(0,191,255,0.1); border: 1px solid rgba(0,191,255,0.3); color: var(--aqua); padding: 0.2rem 0.7rem; border-radius: 4px; font-size: 0.8rem; font-weight: 600; letter-spacing: 1px; margin: 0.2rem; }
+  </style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- SCROLL PROGRESS -->
+<div id="scroll-progress"></div>
+
+<!-- LOADING SCREEN -->
+<div id="loader">
+  <div class="loader-text">SV.EXE</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<!-- NAVBAR -->
+<nav>
+  <div class="nav-logo">SV</div>
+  <ul class="nav-links">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#academic">Education</a></li>
+    <li><a href="#vision">Vision</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#achievements">Achievements</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="theme-toggle" id="theme-btn" title="Toggle theme"><i class="fa fa-moon"></i></button>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#hero" onclick="closeMobile()">Home</a>
+  <a href="#about" onclick="closeMobile()">About</a>
+  <a href="#academic" onclick="closeMobile()">Education</a>
+  <a href="#vision" onclick="closeMobile()">Vision</a>
+  <a href="#skills" onclick="closeMobile()">Skills</a>
+  <a href="#achievements" onclick="closeMobile()">Achievements</a>
+  <a href="#contact" onclick="closeMobile()">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <canvas id="particles"></canvas>
+  <div class="hero-content">
+    <div class="hero-avatar-wrap" data-aos="zoom-in">
+      <div class="hero-avatar">
+        <i class="fa fa-user"></i>
+      </div>
+    </div>
+    <div class="section-label" data-aos="fade-up" data-aos-delay="100">Portfolio · 2024</div>
+    <h1 class="hero-name glow" data-aos="fade-up" data-aos-delay="150">
+      <span>Sudarshan</span> V
+    </h1>
+    <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="200">ECE Student @ Bangalore Institute of Technology</p>
+    <div class="typing-wrap" data-aos="fade-up" data-aos-delay="250">
+      <span id="typed-text"></span><span class="cursor-blink"></span>
+    </div>
+    <div class="hero-btns" data-aos="fade-up" data-aos-delay="300">
+      <a href="#" class="btn btn-primary"><i class="fa fa-download"></i> Download Resume</a>
+      <a href="#about" class="btn btn-outline"><i class="fa fa-rocket"></i> Explore My Journey</a>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label" data-aos="fade-right">About Me</div>
+    <h2 class="section-title" data-aos="fade-right" data-aos-delay="50">Who <span>I Am</span></h2>
+    <div class="divider" data-aos="fade-right" data-aos-delay="100"></div>
+    <div class="about-grid">
+      <div class="about-info" data-aos="fade-right" data-aos-delay="150">
+        <p>I'm <strong style="color:var(--aqua)">Sudarshan V</strong>, an 18-year-old Electronics and Communication Engineering student at Bangalore Institute of Technology. Passionate about electronics, innovation, and technology, I believe in building a successful career through consistent growth and every small step toward excellence.</p>
+        <p>Currently in my 2nd semester, I'm focused on developing strong engineering fundamentals while exploring embedded systems, circuit analysis, and problem-solving.</p>
+        <div class="about-meta">
+          <div class="meta-item"><i class="fa fa-user"></i><span>18 Years Old</span></div>
+          <div class="meta-item"><i class="fa fa-map-marker-alt"></i><span>Bangalore, Karnataka</span></div>
+          <div class="meta-item"><i class="fa fa-graduation-cap"></i><span>BIT, Bangalore</span></div>
+          <div class="meta-item"><i class="fa fa-bolt"></i><span>ECE – 2nd Semester</span></div>
+        </div>
+        <div style="margin-top:1.5rem; display:flex; flex-wrap:wrap; gap:0.4rem;">
+          <span class="tag">Electronics</span>
+          <span class="tag">Innovation</span>
+          <span class="tag">Technology</span>
+          <span class="tag">Badminton</span>
+          <span class="tag">Leadership</span>
+        </div>
+      </div>
+      <div class="about-stats" data-aos="fade-left" data-aos-delay="200">
+        <div class="stat-card glass-card">
+          <div class="stat-num counter" data-target="2">0</div>
+          <div class="stat-label">Semesters Completed</div>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-num counter" data-target="5">0</div>
+          <div class="stat-label">Technical Skills</div>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-num counter" data-target="5">0</div>
+          <div class="stat-label">Personal Skills</div>
+        </div>
+        <div class="stat-card glass-card">
+          <div class="stat-num counter" data-target="4">0</div>
+          <div class="stat-label">Achievements</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACADEMIC -->
+<section id="academic">
+  <div class="container">
+    <div class="section-label" data-aos="fade-right">Education</div>
+    <h2 class="section-title" data-aos="fade-right" data-aos-delay="50">Academic <span>Journey</span></h2>
+    <div class="divider" data-aos="fade-right" data-aos-delay="100"></div>
+    <div class="timeline">
+      <div class="timeline-item" data-aos="fade-up" data-aos-delay="100">
+        <div class="timeline-num">01 · SCHOOL</div>
+        <h3>Narayana E-Techno School</h3>
+        <p>Completed school education with a strong foundation in science and mathematics.</p>
+        <span class="badge badge-done"><i class="fa fa-check"></i> Completed</span>
+      </div>
+      <div class="timeline-item" data-aos="fade-up" data-aos-delay="150">
+        <div class="timeline-num">02 · PRE-UNIVERSITY</div>
+        <h3>Sri Chaitanya PU College</h3>
+        <p>Completed Pre-University education with focus on Physics, Chemistry, and Mathematics.</p>
+        <span class="badge badge-done"><i class="fa fa-check"></i> Completed</span>
+      </div>
+      <div class="timeline-item" data-aos="fade-up" data-aos-delay="200">
+        <div class="timeline-num">03 · ENGINEERING</div>
+        <h3>Bangalore Institute of Technology</h3>
+        <p>Electronics and Communication Engineering — currently in 2nd semester, building expertise in circuits, signals, and embedded systems.</p>
+        <span class="badge badge-active"><i class="fa fa-circle"></i> Currently Pursuing</span>
+        <p style="margin-top:0.8rem; color:var(--aqua); font-size:0.9rem;"><i class="fa fa-star"></i> Future Goal: Become a successful Electronics Engineer</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CAREER VISION -->
+<section id="vision">
+  <div class="container">
+    <div class="section-label" data-aos="fade-right">Roadmap</div>
+    <h2 class="section-title" data-aos="fade-right" data-aos-delay="50">Career <span>Vision</span></h2>
+    <div class="divider" data-aos="fade-right" data-aos-delay="100"></div>
+    <div class="vision-grid">
+      <div class="vision-card" data-aos="zoom-in" data-aos-delay="100">
+        <div class="vision-icon"><i class="fa fa-graduation-cap"></i></div>
+        <div><h3>Complete Engineering Degree</h3><p>Pursue a comprehensive 4-year ECE program at BIT, Bangalore with excellence.</p></div>
+      </div>
+      <div class="vision-card" data-aos="zoom-in" data-aos-delay="150">
+        <div class="vision-icon"><i class="fa fa-microchip"></i></div>
+        <div><h3>Build Electronics Fundamentals</h3><p>Develop deep understanding of circuits, signals, and electronic systems.</p></div>
+      </div>
+      <div class="vision-card" data-aos="zoom-in" data-aos-delay="200">
+        <div class="vision-icon"><i class="fa fa-cogs"></i></div>
+        <div><h3>Develop Embedded Systems</h3><p>Master microcontrollers, FPGA, and real-time embedded programming.</p></div>
+      </div>
+      <div class="vision-card" data-aos="zoom-in" data-aos-delay="250">
+        <div class="vision-icon"><i class="fa fa-lightbulb"></i></div>
+        <div><h3>Work on Innovative Projects</h3><p>Design and build cutting-edge projects that solve real-world problems.</p></div>
+      </div>
+      <div class="vision-card" data-aos="zoom-in" data-aos-delay="300">
+        <div class="vision-icon"><i class="fa fa-user-tie"></i></div>
+        <div><h3>Become a Professional Engineer</h3><p>Secure a role as a professional Electronics Engineer in top-tier organizations.</p></div>
+      </div>
+      <div class="vision-card" data-aos="zoom-in" data-aos-delay="350">
+        <div class="vision-icon"><i class="fa fa-globe"></i></div>
+        <div><h3>Contribute to Technology</h3><p>Drive innovation and contribute meaningfully to the advancement of technology.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div class="section-label" data-aos="fade-right">Expertise</div>
+    <h2 class="section-title" data-aos="fade-right" data-aos-delay="50">My <span>Skills</span></h2>
+    <div class="divider" data-aos="fade-right" data-aos-delay="100"></div>
+    <div class="skills-grid">
+      <div data-aos="fade-right" data-aos-delay="150">
+        <div class="skill-group">
+          <h3><i class="fa fa-microchip"></i> Technical Skills</h3>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-head"><span>Electronics Fundamentals</span><span>80%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-head"><span>Circuit Analysis</span><span>75%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="75"></div></div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-head"><span>Problem Solving</span><span>85%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-head"><span>Engineering Mathematics</span><span>78%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="78"></div></div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-head"><span>Basic Programming</span><span>65%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="65"></div></div>
+          </div>
+        </div>
+      </div>
+      <div data-aos="fade-left" data-aos-delay="150">
+        <div class="skill-group">
+          <h3><i class="fa fa-users"></i> Personal Skills</h3>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-head"><span>Teamwork</span><span>90%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="90"></div></div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-head"><span>Leadership</span><span>80%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="80"></div></div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-head"><span>Communication</span><span>85%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="85"></div></div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-head"><span>Time Management</span><span>78%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="78"></div></div>
+          </div>
+          <div class="skill-bar-wrap">
+            <div class="skill-bar-head"><span>Continuous Learning</span><span>95%</span></div>
+            <div class="skill-bar-track"><div class="skill-bar-fill" data-width="95"></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="container">
+    <div class="section-label" data-aos="fade-right">Highlights</div>
+    <h2 class="section-title" data-aos="fade-right" data-aos-delay="50">My <span>Achievements</span></h2>
+    <div class="divider" data-aos="fade-right" data-aos-delay="100"></div>
+    <div class="achieve-grid">
+      <div class="achieve-card" data-aos="zoom-in" data-aos-delay="100">
+        <div class="achieve-icon">🏸</div>
+        <h3>Badminton Tournaments</h3>
+        <p>Participated in competitive badminton tournaments, showcasing skill and sportsmanship.</p>
+      </div>
+      <div class="achieve-card" data-aos="zoom-in" data-aos-delay="150">
+        <div class="achieve-icon">📜</div>
+        <h3>Certificates Earned</h3>
+        <p>Earned multiple certificates in academics and extracurricular activities.</p>
+      </div>
+      <div class="achieve-card" data-aos="zoom-in" data-aos-delay="200">
+        <div class="achieve-icon">🏆</div>
+        <h3>Prizes & Recognition</h3>
+        <p>Received prizes and recognition for outstanding performance in competitions.</p>
+      </div>
+      <div class="achieve-card" data-aos="zoom-in" data-aos-delay="250">
+        <div class="achieve-icon">🤝</div>
+        <h3>Sportsmanship & Team Spirit</h3>
+        <p>Demonstrated excellent sportsmanship and contributed to team success.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOBBIES -->
+<section id="hobbies">
+  <div class="container" style="text-align:center;">
+    <div class="section-label" style="text-align:center;" data-aos="fade-up">Interests</div>
+    <h2 class="section-title" style="text-align:center;" data-aos="fade-up" data-aos-delay="50">Beyond <span>Engineering</span></h2>
+    <div class="divider" style="margin:0 auto 3rem;" data-aos="fade-up" data-aos-delay="100"></div>
+    <div class="hobby-card" data-aos="zoom-in" data-aos-delay="150">
+      <div class="hobby-icon">🏸</div>
+      <h3>Badminton</h3>
+      <p style="color:var(--muted); margin-bottom:1.5rem; font-size:0.95rem;">A sport that sharpens reflexes, builds endurance, and fosters competitive spirit.</p>
+      <blockquote>"Badminton teaches discipline, focus, and determination—qualities I bring into engineering as well."</blockquote>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label" data-aos="fade-right">Get In Touch</div>
+    <h2 class="section-title" data-aos="fade-right" data-aos-delay="50">Contact <span>Me</span></h2>
+    <div class="divider" data-aos="fade-right" data-aos-delay="100"></div>
+    <div class="contact-grid">
+      <div data-aos="fade-right" data-aos-delay="150">
+        <div class="contact-info">
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fa fa-phone"></i></div>
+            <div><h4>Phone</h4><a href="tel:+919035373283">+91 9035373283</a></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fa fa-envelope"></i></div>
+            <div><h4>Email</h4><a href="mailto:sudarshanv18007@gmail.com">sudarshanv18007@gmail.com</a></div>
+          </div>
+          <div class="contact-item">
+            <div class="contact-icon"><i class="fa fa-map-marker-alt"></i></div>
+            <div><h4>Location</h4><span style="font-size:1rem; font-weight:600;">Bangalore, Karnataka, India</span></div>
+          </div>
+        </div>
+        <div class="social-links">
+          <a href="#" class="social-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="social-btn" title="GitHub"><i class="fab fa-github"></i></a>
+          <a href="#" class="social-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="mailto:sudarshanv18007@gmail.com" class="social-btn" title="Email"><i class="fa fa-envelope"></i></a>
+          <a href="tel:+919035373283" class="social-btn" title="Call"><i class="fa fa-phone"></i></a>
+        </div>
+        <div id="map-embed">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d248849.8865085506!2d77.4908792!3d12.9539974!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae1670c9b44e6d%3A0xf8dfc3e8517e4fe0!2sBengaluru%2C%20Karnataka!5e0!3m2!1sen!2sin!4v1620000000000"
+            width="100%" height="200" style="border:0; display:block;" allowfullscreen loading="lazy">
+          </iframe>
+        </div>
+      </div>
+      <div data-aos="fade-left" data-aos-delay="150">
+        <div class="glass-card contact-form">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" placeholder="Enter your name" />
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" placeholder="Enter your email" />
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <input type="text" placeholder="Subject" />
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea rows="5" placeholder="Write your message..."></textarea>
+          </div>
+          <button class="btn btn-primary" onclick="sendMsg()" style="width:100%; justify-content:center; font-size:0.85rem; letter-spacing:2px;">
+            <i class="fa fa-paper-plane"></i> Send Message
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Designed &amp; Developed by <span>Sudarshan V</span> | Future <span>Electronics Engineer</span></p>
+  <p style="margin-top:0.4rem; font-size:0.8rem;">© 2024 Sudarshan V · All Rights Reserved</p>
+</footer>
+
+<!-- BACK TO TOP -->
+<button id="back-top" title="Back to top"><i class="fa fa-chevron-up"></i></button>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+  // Init AOS
+  AOS.init({ duration: 700, once: true, offset: 60 });
+
+  // LOADER
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const l = document.getElementById('loader');
+      l.style.opacity = '0';
+      setTimeout(() => l.style.display = 'none', 600);
+    }, 2000);
+  });
+
+  // CUSTOM CURSOR
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => {
+      ring.style.left = e.clientX + 'px';
+      ring.style.top = e.clientY + 'px';
+    }, 80);
+  });
+
+  // SCROLL PROGRESS
+  window.addEventListener('scroll', () => {
+    const d = document.documentElement;
+    const p = (d.scrollTop / (d.scrollHeight - d.clientHeight)) * 100;
+    document.getElementById('scroll-progress').style.width = p + '%';
+    document.getElementById('back-top').style.display = d.scrollTop > 400 ? 'flex' : 'none';
+  });
+
+  // TYPING EFFECT
+  const phrases = [
+    'Electronics & Communication Engineering Student',
+    'Future Electronics Engineer',
+    'Badminton Enthusiast',
+    'Technology Explorer'
+  ];
+  let pi = 0, ci = 0, del = false;
+  const tEl = document.getElementById('typed-text');
+  function typeLoop() {
+    const cur = phrases[pi];
+    if (!del) {
+      tEl.textContent = cur.slice(0, ++ci);
+      if (ci === cur.length) { del = true; setTimeout(typeLoop, 1800); return; }
+    } else {
+      tEl.textContent = cur.slice(0, --ci);
+      if (ci === 0) { del = false; pi = (pi + 1) % phrases.length; }
+    }
+    setTimeout(typeLoop, del ? 40 : 70);
+  }
+  setTimeout(typeLoop, 2500);
+
+  // PARTICLES
+  const canvas = document.getElementById('particles');
+  const ctx = canvas.getContext('2d');
+  let W, H, pts = [];
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+  for (let i = 0; i < 80; i++) {
+    pts.push({ x: Math.random()*1000, y: Math.random()*1000, vx: (Math.random()-0.5)*0.4, vy: (Math.random()-0.5)*0.4, r: Math.random()*2+1 });
+  }
+  function drawParticles() {
+    ctx.clearRect(0, 0, W, H);
+    pts.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0 || p.x > W) p.vx *= -1;
+      if (p.y < 0 || p.y > H) p.vy *= -1;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(0,191,255,0.5)';
+      ctx.fill();
+    });
+    for (let i = 0; i < pts.length; i++) {
+      for (let j = i+1; j < pts.length; j++) {
+        const dx = pts[i].x - pts[j].x, dy = pts[i].y - pts[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 100) {
+          ctx.beginPath();
+          ctx.moveTo(pts[i].x, pts[i].y);
+          ctx.lineTo(pts[j].x, pts[j].y);
+          ctx.strokeStyle = `rgba(0,191,255,${0.12*(1-dist/100)})`;
+          ctx.lineWidth = 0.7;
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(drawParticles);
+  }
+  drawParticles();
+
+  // SKILL BARS on scroll
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.skill-bar-fill').forEach(bar => {
+          bar.style.width = bar.getAttribute('data-width') + '%';
+        });
+      }
+    });
+  }, { threshold: 0.3 });
+  const skillSec = document.getElementById('skills');
+  if (skillSec) observer.observe(skillSec);
+
+  // COUNTERS
+  const cObserver = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.counter').forEach(el => {
+          const target = +el.getAttribute('data-target');
+          let cur = 0;
+          const step = target / 40;
+          const t = setInterval(() => {
+            cur = Math.min(cur + step, target);
+            el.textContent = Math.round(cur);
+            if (cur >= target) clearInterval(t);
+          }, 40);
+        });
+        cObserver.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.4 });
+  const aboutSec = document.getElementById('about');
+  if (aboutSec) cObserver.observe(aboutSec);
+
+  // THEME TOGGLE
+  const themeBtn = document.getElementById('theme-btn');
+  themeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    themeBtn.innerHTML = document.body.classList.contains('light') ? '<i class="fa fa-sun"></i>' : '<i class="fa fa-moon"></i>';
+  });
+
+  // HAMBURGER
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('mobile-menu').classList.toggle('open');
+  });
+  function closeMobile() { document.getElementById('mobile-menu').classList.remove('open'); }
+
+  // BACK TO TOP
+  document.getElementById('back-top').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+  // CONTACT FORM
+  function sendMsg() {
+    alert('Thank you for your message! Sudarshan will get back to you soon.');
+  }
+</script>
+</body>
+</html>
